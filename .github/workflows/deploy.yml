@@ -1,0 +1,33 @@
+name: CI/CD with Docker and VerceL
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: kevinr08
+          password: Kevincraft54
+
+      - name: Build Docker image
+        run: docker build -t kevinr08/microservicioautos .
+
+      - name: Push Docker image to Docker Hub
+        run: docker push kevinr08/microservicioautos
+
+      - name: Deploy to Vercels
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: 38KtTfoizDDgXsbgKeqO44tf
+          vercel-org-id: team_H6lknTBP4ChWtZaLmCMgI0rS
+          vercel-project-id: prj_lX3U1bxbE7k59bcY8Tqh5Npgg2Bq
